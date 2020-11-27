@@ -1,5 +1,6 @@
 import org.openqa.selenium.WebDriver;
 
+// Lennert Van Oosterwyck r0782485;
 public class Page {
 
     WebDriver driver;

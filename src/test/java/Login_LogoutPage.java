@@ -1,10 +1,11 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
+// Lennert Van Oosterwyck r0782485;
 public class Login_LogoutPage extends Page  {
 
     @FindBy(id="useridLogIn")
@@ -35,21 +36,48 @@ public class Login_LogoutPage extends Page  {
     }
 
 
+    public boolean loginButtonIsPresent(){
 
-
-    public void submit() {
-        this.logInButton.click();
-    }
-
-    public boolean userIsLoggedOut(){
         try {
-            WebElement user = driver.findElement(By.id("isIngelogd"));
-        }
-        catch (Exception e) {
+            WebElement webElement = driver.findElement(By.id("login"));
             return true;
+        }catch (NoSuchElementException e) {
+            return false;
         }
-        return false;
     }
+
+    public void submitLoginButton() {
+        WebElement buttonLogin = driver.findElement(By.id("login"));
+        buttonLogin.submit();
+
+    }
+    public boolean logOutButtonIsPresent(){
+
+        try {
+            WebElement webElement = driver.findElement(By.id("logout"));
+            return true;
+        }catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public void submitLogOutButton() {
+        WebElement buttonLogin = driver.findElement(By.id("logout"));
+        buttonLogin.submit();
+
+    }
+
+    public boolean hasErrorMessage (String message) {
+        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
+        return (message.equals(errorMsg.getText()));
+    }
+
+
+
+
+
+
+
 
 
 }
