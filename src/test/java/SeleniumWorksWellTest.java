@@ -24,6 +24,7 @@ public class SeleniumWorksWellTest {
 		}
 
 
+
 		@After
 		public void clean(){
 			driver.quit();

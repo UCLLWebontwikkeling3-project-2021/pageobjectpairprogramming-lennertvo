@@ -8,8 +8,10 @@ import org.openqa.selenium.support.PageFactory;
 // Lennert Van Oosterwyck r0782485;
 public class Login_LogoutPage extends Page  {
 
+
     @FindBy(id="useridLogIn")
     private WebElement useridLoginField;
+
 
 
     @FindBy(id="passwordLogIn")
