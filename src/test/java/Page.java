@@ -1,10 +1,10 @@
 import org.openqa.selenium.WebDriver;
 
-// Lennert Van Oosterwyck r0782485;
-public class Page {
 
+
+public class Page {
     WebDriver driver;
-    String path = "http://localhost:8080/Controller";
+    String path = "http://localhost:8080/opdracht_web3_war_exploded/Controller";
 
     public Page(WebDriver driver) {
         this.driver = driver;
@@ -20,6 +20,9 @@ public class Page {
     public String getPath() {
         return path;
     }
+
+
+
 
     public String getTitle() {
         return driver.getTitle();

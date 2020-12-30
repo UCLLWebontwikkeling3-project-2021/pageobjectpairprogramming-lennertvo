@@ -1,16 +1,17 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+
+
 import static org.junit.Assert.*;
 
-
-
-// Lennert Van Oosterwyck
 public class LogOutTest {
+
     private WebDriver driver;
     private String path = "http://localhost:8080/opdracht_web3_war_exploded/Controller";
 
@@ -19,8 +20,7 @@ public class LogOutTest {
 
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lenne\\2TI\\Web3\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get(path+"?command=Register");
-        // inloggen
+        driver.get(path);
 
 
 
@@ -36,40 +36,41 @@ public class LogOutTest {
     // kan enkel werken als je een gebruiker hebt in dit geval de ADMIN met als userid= 'admin' en als password = 't'
     @Test
     public void test_logout_works_when_you_are_logged_in(){
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        System.out.println("oke");
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+        //Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        System.out.println("okeeeeeeeeeeeeee");
         // eerst inloggen
-        login_logoutPage.setUserid("admin");
-        login_logoutPage.setPassword("t");
-        login_logoutPage.submitLoginButton();
+        homePage.setUserid("admin");
+        homePage.setPassword("Webontwikkeling3");
+        homePage.submitLoginButton();
 
         // kijk of je de logout button kan zien
-        assertTrue(login_logoutPage.logOutButtonIsPresent());
+        assertTrue(homePage.logOutButtonIsPresent());
         // uitloggen
-        login_logoutPage.submitLogOutButton();
+        homePage.submitLogOutButton();
         // kijk of je bent uitgelogd en ook dus terug kan inloggen
-        assertTrue(login_logoutPage.loginButtonIsPresent());
+        assertTrue(homePage.loginButtonIsPresent());
 
     }
 
     @Test
     public void test_can_not_logout_when_not_logged_in() {
-        Login_LogoutPage login_logoutPage = PageFactory.initElements(driver, Login_LogoutPage.class);
+        HomePage homePage = PageFactory.initElements(driver, HomePage.class);
         boolean gelukt = false;
         // kijken of dat login button zichtbaar is
-        assertTrue(login_logoutPage.loginButtonIsPresent());
+        assertTrue(homePage.loginButtonIsPresent());
         // kijken of dat logout button niet zichtbaar is
-        assertFalse(login_logoutPage.loginButtonIsPresent());
+        assertFalse(homePage.logOutButtonIsPresent());
 
         try {
-            login_logoutPage.submitLogOutButton();
+            homePage.submitLogOutButton();
             gelukt = false;
         }
         catch (NoSuchElementException e) {
             gelukt = true;
         }
-        assertFalse(gelukt);
+        assertTrue(gelukt);
     }
-
-
 
 }

@@ -3,11 +3,17 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-// Lennert Van Oosterwyck r0782485;
-public class Login_LogoutPage extends Page  {
+import java.util.ArrayList;
+import java.util.List;
 
+
+public class HomePage extends Page {
+
+    public HomePage(WebDriver driver){
+        super(driver);
+        this.driver.get(getPath());
+    }
 
     @FindBy(id="useridLogIn")
     private WebElement useridLoginField;
@@ -20,10 +26,7 @@ public class Login_LogoutPage extends Page  {
     @FindBy(id="login")
     private WebElement logInButton;
 
-    public Login_LogoutPage(WebDriver driver){
-        super(driver);
-        this.driver.get(getPath()+"?command=LogIn");
-    }
+
 
 
     public void setUserid(String userid){
@@ -70,16 +73,24 @@ public class Login_LogoutPage extends Page  {
     }
 
     public boolean hasErrorMessage (String message) {
-        WebElement errorMsg = driver.findElement(By.cssSelector("div.alert-danger ul li"));
-        return (message.equals(errorMsg.getText()));
+        WebElement errorMsg = driver.findElement(By.className("alert-danger"));
+        return errorMsg.getText().equals(message);
+
     }
 
-
-
-
-
-
-
-
+    public boolean hasWelcomeMessage(String message) {
+        WebElement welcomeMsg = driver.findElement(By.className("alert-success"));
+        return welcomeMsg.getText().equals(message);
+    }
+    public boolean hasNavToTestPage() {
+        ArrayList<WebElement> listItems=(ArrayList<WebElement>) driver.findElements(By.cssSelector("nav ul li a"));
+        boolean found=false;
+        for (WebElement listItem:listItems) {
+            if (listItem.getText().contains("Add Test")) {
+                found=true;
+            }
+        }
+        return found;
+    }
 
 }
